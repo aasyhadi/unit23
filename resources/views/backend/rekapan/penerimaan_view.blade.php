@@ -54,10 +54,12 @@
     </div>
 	<div class="clearfix"></div>
     @include('backend.elements.breadcrumb',array('breadcrumb' => $breadcrumb))
+    <button class="btn btn-sm btn-info" id="btn-sinkron"><i class="fa fa-gears"></i> Sinkron Data </button>
     <div class="row">
         <div class="col-xs-12">
             <div class="x_panel">
                 <div class="x_content">
+                    @include('backend.elements.notification')
                     <div class="row">
                         <div class="col-xs-12 col-sm-1" style="margin-top:7px;">
                             Periode 
@@ -101,7 +103,6 @@
 	<div class="col-md-12 col-sm-12 col-xs-12">
 			<div class="x_panel">
 				<div class="x_content">
-                    @include('backend.elements.notification')
                     <div class="table-responsive">
                         <table class="table table-striped table-hover table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                             <thead>
@@ -183,5 +184,14 @@
 
 
         })
+
+        $(function(){
+			$("#btn-sinkron").on('click', function(){
+				$.get("{{url('backend/rekapan/sinkron')}}",function(){
+                    window.location = '{{url("backend/rekapan/sinkron")}}';
+                });
+                
+			})
+		})
 </script>
 @endsection

@@ -63,6 +63,7 @@
         <div class="col-xs-12">
             <div class="x_panel">
                 <div class="x_content">
+					@include('backend.elements.notification')
                     <div class="row">
                         <div class="col-xs-12 col-sm-1" style="margin-top:7px;">
                             Periode 
@@ -103,6 +104,7 @@
         </div>
     </div>
 
+
 	<div class="row">
 	</div>
 @endsection
@@ -138,19 +140,10 @@
         })
 
 		$(function(){
-			$("#btn-sinkron").on('click', function(e){
-				e.preventDefault();
-				
-				$.get("{{url('backend/rekapan/sinkron')}}",function($respon){
-					if ($respon.status==true){
-						showNotify('Berhasil',$respon.message);
-						//tunggu.modal('hide');
-						/* $("#tabel-tpp").html($respon); */
-					}else{
-						showAlert('Gagal',$respon.message);
-						//tunggu.modal('hide');
-					}
-				});
+			$("#btn-sinkron").on('click', function(){
+				$.get("{{url('backend/rekapan/sinkron')}}",function(){
+					window.location = '{{url("backend/rekapan/sinkron")}}';
+                });
 			})
 		})
 

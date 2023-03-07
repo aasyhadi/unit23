@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Redirect;
 use Datatables;
+use Artisan;
 
 class RekapController extends Controller
 {
@@ -108,35 +109,12 @@ class RekapController extends Controller
     }
 
     public function sinkron_data(){
-        // kosongkan tabel rekapan
-        // inset into dengan select
-		//$data = new Rekapan();
-        $data = "INSERT INTO rekapan ( id, kode, nama, id_kategori, jumlah, penjualan, modal, penerimaan, bulan, id_unit ) SELECT
-                    b.id,
-                    b.kode,
-                    b.nama,
-                    b.id_kategori,
-                    sum( p.jumlah ) AS jumlah,
-                    sum( p.jumlah ) * p.harga AS penjualan,
-                    sum( p.jumlah ) * b.harga_beli AS modal,
-                    ( sum( p.jumlah ) * p.harga ) - ( sum( p.jumlah ) * b.harga_beli ) AS penerimaan,
-                    substr( p.created_at, 6, 2 ) AS bulan,
-                    h.id_unit 
-                FROM
-                    penjualan_d AS p
-                    LEFT JOIN penjualan_h AS h ON p.id_penjualan = h.id
-                    LEFT JOIN barang AS b ON b.id = p.id_barang
-                    LEFT JOIN kategori_barang AS k ON k.id_kategori = b.id_kategori 
-                WHERE
-                    h.active != 0 
-                GROUP BY
-                    b.id,
-                    b.kode,
-                    b.nama";
-       
-        if($data->save()){
-            return Redirect::to('/backend/rekap-penerimaan')->with('success', "Data sinkron successfully")->with('mode', 'success');
-        }
+        // call rekap penerimaan barang
+		Artisan::call('create:rekappenerimaan');
+
+        return Redirect::to('/backend/rekap-penerimaan')->with('success', "Data Berhasil Disinkronisasi.")->with('mode', 'success');
+        /*  $respon = array('status'=>true,'message'=>'Data Berhasil Disinkronisasi.');
+        return response()->json($respon); */
     }
 
 }
