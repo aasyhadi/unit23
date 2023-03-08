@@ -1,5 +1,5 @@
 deployment:
   tasks:
-    - composer install
+    - /usr/local/bin/composer install
     - export DEPLOYPATH=/home/unitafmy/public_html/unit23/
     - /bin/cp * $DEPLOYPATH
