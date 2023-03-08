@@ -175,9 +175,9 @@ Route::group(array('prefix' => 'backend','middleware'=> ['token_admin']), functi
     Route::get('/report-stok','Backend\LaporanController@index_stok');
 
 	Route::get('/rekap-penerimaan','Backend\RekapController@index_penerimaan');
-	Route::get('/rekap-penerimaan/{id_unit}/{bulan}', 'Backend\RekapController@penerimaan_view');
+	Route::get('/rekap-penerimaan/{unit}/{bulan}', 'Backend\RekapController@penerimaan_view');
 	Route::get('/rekap-pengeluaran','Backend\RekapController@index_pengeluaran');
-	Route::get('/rekap-penjualan/{id_unit}/{bulan}', 'Backend\RekapController@pengeluaran_view');
+	Route::get('/rekap-penjualan/{unit}/{bulan}', 'Backend\RekapController@pengeluaran_view');
 	Route::get('/rekapan/sinkron', 'Backend\RekapController@sinkron_data');
 
 	Route::get('/koreksi-stok','Backend\KoreksiController@index');
